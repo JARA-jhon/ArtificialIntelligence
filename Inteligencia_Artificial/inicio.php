@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="es" xml:lang="es">
 <head>
 	<title>Consulta de imagenes</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="Inteligencia_Artificial/css/bootstrap.min.css">
+	<link rel="stylesheet" href="Inteligencia_Artificial/css/sweetalert.css">
+	<link rel="stylesheet" href="Inteligencia_Artificial/css/custom.css">
 </head>
 <body>
 	<div class="container">
@@ -23,24 +28,46 @@
 							<input type="submit" value="Ejecutar">
 							<br>
 							<br>
-						
+
+							<div class="col-md-6">
+								<fieldset class="form-group">
+									<div class="row">
+										<div class="form-check radio_check">
+											<input class="form-check-input" type="radio" name="radio_select" id="radiosfoto" value="1" checked>
+											<label class="form-check-label" for="radiosfoto">Seleccionar Foto</label>
+										</div>
+										<div class="form-check radio_check">
+											<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
+											<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
+										</div>
+									</div>
+								</fieldset>
+								<div class="container_radio">
+									<input type="file" class="form-control-file video_container" name="archivo" id="subirfoto" accept="image/*">
+									<video id="video" autoplay="autoplay" class="video_container none"></video>
+								</div>
+							</div>
+							<button class="btn btn-priemary btn-sm" type="submit" id="btn-save">Guardar</button>
+							<canvas id="canvas" class="none"></canvas>
 				</form>
 				<?php
+				if(!empty($_POST['txt1']) && !empty($_POST['txt2'])){
+
 				
-				$URL = $_POST['txt1'];
-				$KEY = $_POST['txt2'];
-				$Comando = "";
-				$Comando = 'curl -u "apikey:'.$KEY.'" "'.$URL.'&version=2020-11-03"';
+					$URL = $_POST['txt1'];
+					$KEY = $_POST['txt2'];
+					$Comando = "";
+					$Comando = 'curl -u "apikey:'.$KEY.'" "https://gateway.watsonplatform.net/visual-recognition/api/v3/classify?url='.$URL.'&version=2020-11-03"';
 
-				$Result = shell_exec($Comando);
-				$ObjetResult = json_decode($Result);
-				$Positionimages = $ObjetResult->{'images'};	
-				$positionClasifier = $Positionimages[0];
-				$positionClasifierId = $positionClasifier->{'classifiers'};
-				$positionClases = $positionClasifierId[0];
-				$positionResult = $positionClases->{'classes'};
-				//var_dump($positionResult[1]);
-
+					$Result = shell_exec($Comando);
+					$ObjetResult = json_decode($Result);
+					$Positionimages = $ObjetResult->{'images'};	
+					$positionClasifier = $Positionimages[0];
+					$positionClasifierId = $positionClasifier->{'classifiers'};
+					$positionClases = $positionClasifierId[0];
+					$positionResult = $positionClases->{'classes'};
+					//var_dump($positionResult[1]);
+				
 				?>	
 
 				<div>
@@ -72,6 +99,7 @@
 							
 							<?php
 							}
+						}
 							?>
 							
 						</tbody>
@@ -80,6 +108,10 @@
 			</div>
 		</div>
 	</div>
+	<script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.js"></script>
+	<script src="js/camara.js"></script>
 </body>
 </html>
 
