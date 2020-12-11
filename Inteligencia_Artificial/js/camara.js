@@ -48,3 +48,18 @@ $("#radiosfoto").click(function() {
     $("#video").addClass("none");
     turnOffCamera();
 });
+
+$btn-save.addEventListener("click", function() {
+        let contexto = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        contexto.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+        let foto = canvas.toDataURL();
+    
+        let enlace = document.createElement(contexto);
+        enlace.download = "foto.png";
+        enlace.href = foto;
+        enlace.click();
+    });
+

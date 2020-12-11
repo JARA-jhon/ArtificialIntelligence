@@ -7,6 +7,8 @@
 	<link rel="stylesheet" href="Inteligencia_Artificial/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Inteligencia_Artificial/css/sweetalert.css">
 	<link rel="stylesheet" href="Inteligencia_Artificial/css/custom.css">
+	<link rel="stylesheet" href="Style.css">
+
 </head>
 <body>
 	<div class="container">
@@ -15,20 +17,14 @@
 				<h1>Reconocimiento de imagenes</h1>
 			</div>
 			<div class="card-header">
-				<form method="POST">
-					
-							<label for="">URL</label>
-						
-							<input type="text" placeholder="URL" id="txt1" name="txt1" >
-						
-							<label for="">Api key</label>
-						
-							<input class="form-control" type="text" placeholder="Api key" id="txt2" name="txt2" >
-						
+				<form method="POST">					
+							<label for="">URL</label>						
+							<input type="text" placeholder="URL" id="txt1" name="txt1" >						
+							<label for="">Api key</label>						
+							<input class="form-control" type="text" placeholder="Api key" id="txt2" name="txt2" >						
 							<input type="submit" value="Ejecutar">
 							<br>
 							<br>
-
 							<div class="col-md-6">
 								<fieldset class="form-group">
 									<div class="row">
@@ -42,13 +38,17 @@
 										</div>
 									</div>
 								</fieldset>
-								<div class="container_radio">
-									<input type="file" class="form-control-file video_container" name="archivo" id="subirfoto" accept="image/*">
-									<video id="video" autoplay="autoplay" class="video_container none"></video>
-								</div>
 							</div>
-							<button class="btn btn-priemary btn-sm" type="submit" id="btn-save">Guardar</button>
-							<canvas id="canvas" class="none"></canvas>
+							<div>
+								<button class="btn btn-priemary btn-sm" type="submit" id="btn-save">Guardar</button>
+								<br>
+							</div>
+							<div class="container_radio">
+								<video id="video" autoplay="autoplay" class="video_container none"></video>
+								<br>
+								<input type="file" class="form-control-file video_container" name="archivo" id="subirfoto" accept="image/*">	
+							</div>
+							<canvas id = "canvas" style = "display: none;"> </canvas>
 				</form>
 				<?php
 				if(!empty($_POST['txt1']) && !empty($_POST['txt2'])){

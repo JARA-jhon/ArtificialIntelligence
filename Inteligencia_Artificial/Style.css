@@ -1,0 +1,39 @@
+*{
+    text-align: center;
+    margin: 5px auto;
+}
+body{
+    background: #D6EAF8 ;
+    
+}  
+#centro{
+    width: 400px;
+    margin: 15px auto;
+
+}
+label, input{
+    font-size: 18px;
+}
+ hr{
+    height: 5px;
+    width: 50%;
+    size: 15px;
+ }
+
+table
+{
+    border: 1px solid #000;
+    border-collapse:collapse;
+    background-color: #2E86C1;
+    
+}
+
+table td 
+{
+    border: 1px solid #000;
+}
+
+table tr:hover {
+    background:#154360;
+    color:#FDFEFE 
+}
