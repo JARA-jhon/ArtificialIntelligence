@@ -15,17 +15,17 @@
 		<div class="card">
 			<div class="card-body">
 				<h1>Reconocimiento de imagenes</h1>
-			</div>
+			</div>			
 			<div class="card-header">
 				<form method="POST">					
-							<label for="">URL</label>						
-							<input type="text" placeholder="URL" id="txt1" name="txt1" >						
-							<label for="">Api key</label>						
-							<input class="form-control" type="text" placeholder="Api key" id="txt2" name="txt2" >						
-							<input type="submit" value="Ejecutar">
-							<br>
-							<br>
-							<div class="col-md-6">
+					<label for="">URL</label>
+					<input type="text" placeholder="URL" id="txt1" name="txt1" value="">						
+						<label for="">Api key</label>						
+						<input class="form-control" type="text" placeholder="Api key" id="txt2" name="txt2" >						
+						<input type="submit" value="Ejecutar">
+						<br>
+						<br>
+						<div class="col-md-6">
 								<fieldset class="form-group">
 									<div class="row">
 										<div class="form-check radio_check">
@@ -39,16 +39,32 @@
 									</div>
 								</fieldset>
 							</div>
-							<div>
-								<button class="btn btn-priemary btn-sm" type="submit" id="btn-save">Guardar</button>
-								<br>
-							</div>
 							<div class="container_radio">
 								<video id="video" autoplay="autoplay" class="video_container none"></video>
-								<br>
-								<input type="file" class="form-control-file video_container" name="archivo" id="subirfoto" accept="image/*">	
 							</div>
 							<canvas id = "canvas" style = "display: none;"> </canvas>
+				</form>
+				<form method="post" enctype="multipart/form-data">
+				<?php
+				if(isset($_POST['btn-save'])){
+					require "api_imgbb.php";
+				    $imgbb = new Api_imgbb;
+				
+				    if($imgbb->isImg($_FILES['archivo'])){
+						$imgbb->upload();
+						?>
+						<b>URL Generada:</b>
+						<?php
+						echo $imgbb->getUrl();
+				    }else{
+				        echo "Este archivo no es compatible";
+				    }
+				}
+				?>
+				<div>
+					<input type="file" class="form-control-file video_container" name="archivo" id="subirfoto" accept="image/*">
+					<button class="btn btn-priemary btn-sm" type="submit" name="btn-save" onclick="env()">Guardar</button>
+				</div>
 				</form>
 				<?php
 				if(!empty($_POST['txt1']) && !empty($_POST['txt2'])){
@@ -114,6 +130,3 @@
 	<script src="js/camara.js"></script>
 </body>
 </html>
-
-
-
