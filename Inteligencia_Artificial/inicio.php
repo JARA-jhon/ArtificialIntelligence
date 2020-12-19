@@ -32,6 +32,7 @@
 											<input class="form-check-input" type="radio" name="radio_select" id="radiosfoto" value="1" checked>
 											<label class="form-check-label" for="radiosfoto">Seleccionar Foto</label>
 										</div>
+										<br>
 										<div class="form-check radio_check">
 											<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
 											<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
@@ -140,7 +141,7 @@
 				?>	
 
 				<div>
-					<table border="1px">
+					<table>
 						<thead>
 							<tr>
 								<td>class</td>

@@ -44,7 +44,7 @@ function turnOnCamera() {
                         })
                         .then(nombreDeLaFoto => {
                             // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-                            console.log("La foto fue enviada correctamente");
+                            alert("La foto fue enviada correctamente");
                             // document.querySelector("#lbl_rutafoto").innerText =`C:/xampp/htdocs/ArtificialIntelligence/Inteligencia_Artificial/${nombreDeLaFoto}`;
                             // document.querySelector("#lbl_rutafoto").innerText =`${nombreDeLaFoto}`;
                             $("#lbl_rutafoto").val("C:/xampp/htdocs/ArtificialIntelligence/Inteligencia_Artificial/"+nombreDeLaFoto);
