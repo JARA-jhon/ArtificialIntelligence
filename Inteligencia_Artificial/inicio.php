@@ -17,12 +17,12 @@
 				<h1>Reconocimiento de imagenes</h1>
 			</div>			
 			<div class="card-header">
-				<form method="POST">					
-					<label for="">URL</label>
+				<!-- <form method="POST">					 -->
+					<!-- <label for="">URL</label>
 					<input type="text" placeholder="URL" id="txt1" name="txt1" value="">						
-						<label for="">Api key</label>						
-						<input class="form-control" type="text" placeholder="Api key" id="txt2" name="txt2" >						
-						<input type="submit" value="Ejecutar">
+					<label for="">Api key</label>						
+					<input class="form-control" type="text" placeholder="Api key" id="txt2" name="txt2" >						 -->
+					<!-- <input type="submit" value="Ejecutar"> -->
 						<br>
 						<br>
 						<div class="col-md-6">
@@ -41,12 +41,40 @@
 							</div>
 							<div class="container_radio">
 								<video id="video" autoplay="autoplay" class="video_container none"></video>
+								<button id="boton">Tomar foto</button>
+								<p id="estado"></p>
 							</div>
 							<canvas id = "canvas" style = "display: none;"> </canvas>
-				</form>
+				<!-- </form> -->
 				<form method="post" enctype="multipart/form-data">
 				<?php
 				if(isset($_POST['btn-save'])){
+					// $imagenes = $_POST['lbl_rutafoto'];
+					// echo $imagenes;
+					// $prueba = $_FILES['archivo'];
+					// while ($nombre_fruta = current($prueba)) {
+						
+					// 	echo key($prueba).'<br />';
+						
+					// 	next($prueba);
+					// }
+					// $a = implode("//", $prueba);
+					// echo $a;
+					// $ContenidoSalida = `C:/xampp/htdocs/ArtificialIntelligence/Inteligencia_Artificial/foto_5fdd4badb413b.png`;
+					// $directorioFichero = sys_get_temp_dir();
+					// $tempFile = tempnam($directorioFichero, "INF");
+					
+					// $concat = array (
+					// 	"name" => "foto_5fdd4badb413b",
+					// 	"type" => "image/png",
+					// 	"tmp_name" => $tempFile,
+					// 	"0"=>"0",
+					// 	"99964"=>"99964"
+					// ) ;
+					// $a = implode(",", $concat);
+					// echo $a;
+					//= "foto_5fdd4badb413b.png,".$tempFile.",0,99964";
+					
 					require "api_imgbb.php";
 				    $imgbb = new Api_imgbb;
 				
@@ -55,33 +83,58 @@
 						?>
 						<b>URL Generada:</b>
 						<?php
-						echo $imgbb->getUrl();
+						//echo $imgbb->getUrl();
+
+						?>
+							<input id="lbl_rutafoto" name="lbl_rutafoto" value="<?php echo $imgbb->getUrl(); ?>">
+						<?php 
+
+						$URL = $imgbb->getUrl();
+						$KEY = 'MSxOfKebgZa8k8MuQMdOw38Tgi-Ymt7plA6w7fSsEfbc';
+						$Comando = "";
+						$Comando = 'curl -u "apikey:'.$KEY.'" "https://gateway.watsonplatform.net/visual-recognition/api/v3/classify?url='.$URL.'&version=2020-11-03"';
+						$Result = shell_exec($Comando);
+						$ObjetResult = json_decode($Result);
+						$Positionimages = $ObjetResult->{'images'};	
+						$positionClasifier = $Positionimages[0];
+						$positionClasifierId = $positionClasifier->{'classifiers'};
+						$positionClases = $positionClasifierId[0];
+						$positionResult = $positionClases->{'classes'};
+
+
+
+
+						
 				    }else{
 				        echo "Este archivo no es compatible";
 				    }
+					
+					
 				}
 				?>
 				<div>
+					
 					<input type="file" class="form-control-file video_container" name="archivo" id="subirfoto" accept="image/*">
 					<button class="btn btn-priemary btn-sm" type="submit" name="btn-save" onclick="env()">Guardar</button>
 				</div>
 				</form>
+
 				<?php
-				if(!empty($_POST['txt1']) && !empty($_POST['txt2'])){
+				// if(!empty($_POST['txt1']) && !empty($_POST['txt2'])){
 
 				
-					$URL = $_POST['txt1'];
-					$KEY = $_POST['txt2'];
-					$Comando = "";
-					$Comando = 'curl -u "apikey:'.$KEY.'" "https://gateway.watsonplatform.net/visual-recognition/api/v3/classify?url='.$URL.'&version=2020-11-03"';
-
-					$Result = shell_exec($Comando);
-					$ObjetResult = json_decode($Result);
-					$Positionimages = $ObjetResult->{'images'};	
-					$positionClasifier = $Positionimages[0];
-					$positionClasifierId = $positionClasifier->{'classifiers'};
-					$positionClases = $positionClasifierId[0];
-					$positionResult = $positionClases->{'classes'};
+					// $URL = $_POST['txt1'];
+					// $KEY = $_POST['txt2'];
+					// $Comando = "";
+					// $Comando = 'curl -u "apikey:'.$KEY.'" "https://gateway.watsonplatform.net/visual-recognition/api/v3/classify?url='.$URL.'&version=2020-11-03"';
+					// echo $Comando;
+					// $Result = shell_exec($Comando);
+					// $ObjetResult = json_decode($Result);
+					// $Positionimages = $ObjetResult->{'images'};	
+					// $positionClasifier = $Positionimages[0];
+					// $positionClasifierId = $positionClasifier->{'classifiers'};
+					// $positionClases = $positionClasifierId[0];
+					// $positionResult = $positionClases->{'classes'};
 					//var_dump($positionResult[1]);
 				
 				?>	
@@ -115,7 +168,7 @@
 							
 							<?php
 							}
-						}
+						
 							?>
 							
 						</tbody>
